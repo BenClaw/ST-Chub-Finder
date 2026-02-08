@@ -7,6 +7,8 @@ import { extension_settings } from "../../../extensions.js";
 import { debounce } from "../../../utils.js";
 
 const extensionName = "ST-Chub-Finder";
+// CORS Proxy to bypass browser restrictions
+const CORS_PROXY = "https://corsproxy.io/?";
 const API_SEARCH = "https://api.chub.ai/api/characters/search";
 const API_DOWNLOAD = "https://api.chub.ai/api/characters/download";
 
@@ -27,12 +29,26 @@ async function searchChub(query, nsfw = false, page = 1) {
         require_custom_prompt: "false"
     });
 
+    const fullUrl = `${API_SEARCH}?${params.toString()}`;
+    const proxyUrl = CORS_PROXY + encodeURIComponent(fullUrl);
+
+    console.log(`Searching Chub: ${fullUrl}`);
+    
     try {
-        const res = await fetch(`${API_SEARCH}?${params.toString()}`);
+        const res = await fetch(proxyUrl);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
+        
+        // Debugging: check what we actually got
+        console.log("Chub Search Results:", data);
+        
         return data.nodes || [];
     } catch (e) {
         console.error("Chub search failed", e);
+        // Show error in UI
+        if (resultsContainer) {
+            resultsContainer.innerHTML = `<div style="color:red; padding:10px;">Error: ${e.message}<br>Check console (F12)</div>`;
+        }
         toastr.error("Search failed: " + e.message);
         return [];
     }
