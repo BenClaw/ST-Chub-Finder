@@ -1,0 +1,69 @@
+.chub-finder-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.chub-results {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+.chub-item {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+    padding: 5px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.chub-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-right: 10px;
+    cursor: zoom-in;
+}
+.chub-item .info {
+    flex: 1;
+    overflow: hidden;
+}
+.chub-item .name {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+.chub-item .author {
+    font-size: 0.8em;
+    opacity: 0.7;
+}
+.chub-item .desc {
+    font-size: 0.9em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    opacity: 0.8;
+}
+.chub-item .tags {
+    font-size: 0.75em;
+    margin-top: 5px;
+    opacity: 0.6;
+}
+.chub-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 10px;
+    background: rgba(0,0,0,0.1);
+}
+.chub-controls input[type="text"] {
+    flex: 1;
+}
+.download-btn {
+    cursor: pointer;
+    padding: 10px;
+    font-size: 1.2em;
+}
+.download-btn:hover {
+    color: #0f0;
+}
